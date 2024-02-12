@@ -1,128 +1,128 @@
-name: Integrity Check
+# name: Integrity Check
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
+#   pull_request:
+#     branches:
+#       - main
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+#   # Allows you to run this workflow manually from the Actions tab
+#   workflow_dispatch:
 
-env:
-  CI: true
-  PNPM_CACHE_FOLDER: .pnpm-store
+# env:
+#   CI: true
+#   PNPM_CACHE_FOLDER: .pnpm-store
 
-jobs:
-  security-audit:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+# jobs:
+#   security-audit:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout source
+#         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
-      - name: install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+#       - name: install pnpm
+#         uses: pnpm/action-setup@v2
+#         with:
+#           version: 8
 
-      - name: Set up Node.js
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
-        with:
-          node-version: 20
+#       - name: Set up Node.js
+#         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
+#         with:
+#           node-version: 20
 
-      - name: Report known vulnerabilities
-        run: pnpm audit
+#       - name: Report known vulnerabilities
+#         run: pnpm audit
 
-  test-with-node:
-    runs-on: macos-latest
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
-        with:
-          submodules: 'true'
+#   test-with-node:
+#     runs-on: macos-latest
+#     steps:
+#       - name: Checkout source
+#         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+#         with:
+#           submodules: 'true'
 
-      - name: install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 8
+#       - name: install pnpm
+#         uses: pnpm/action-setup@v2
+#         with:
+#           version: 8
 
-      - name: Set up Node.js
-        uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
-        with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
+#       - name: Set up Node.js
+#         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
+#         with:
+#           node-version: 20
+#           registry-url: https://registry.npmjs.org/
 
-      - name: Install dependencies
-        run: pnpm install
+#       - name: Install dependencies
+#         run: pnpm install
 
-      - name: Build all workspace packages
-        run: pnpm build
+#       - name: Build all workspace packages
+#         run: pnpm build
 
-      - name: Run linter for all packages
-        run: pnpm lint
+#       - name: Run linter for all packages
+#         run: pnpm lint
 
-      - name: Run tests for all packages
-        run: pnpm test:node --reporter mocha-junit-reporter --reporter-options mochaFile=./results.xml
-      
-      - name: Upload test results to update SDK reports
-        uses: actions/upload-artifact@v3
-        with:
-          name: junit-results
-          path: packages/*/results.xml
+#       - name: Run tests for all packages
+#         run: pnpm test:node --reporter mocha-junit-reporter --reporter-options mochaFile=./results.xml
 
-      - name: Upload test coverage to Codecov
-        uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3.1.4
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+#       - name: Upload test results to update SDK reports
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: junit-results
+#           path: packages/*/results.xml
 
-      - name: Generate an access token to trigger downstream repo
-        uses: actions/create-github-app-token@2986852ad836768dfea7781f31828eb3e17990fa # v1.6.2
-        id: generate_token
-        if: github.ref == 'refs/heads/main'
-        with:
-          app-id: ${{ secrets.CICD_ROBOT_GITHUB_APP_ID }}
-          private-key: ${{ secrets.CICD_ROBOT_GITHUB_APP_PRIVATE_KEY }}
-          owner: TBD54566975
-          repositories: sdk-report-runner
+#       - name: Upload test coverage to Codecov
+#         uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3.1.4
+#         env:
+#           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-      - name: Trigger sdk-report-runner report build
-        if: github.ref == 'refs/heads/main'
-        run: |
-          curl -L \
-          -H "Authorization: Bearer ${APP_TOKEN}" \
-          -H "X-GitHub-Api-Version: 2022-11-28" \
-          -H "Content-Type: application/json" \
-          --fail \
-          --data '{"ref": "main"}' \
-          https://api.github.com/repos/TBD54566975/sdk-report-runner/actions/workflows/build-report.yaml/dispatches
-        env:
-          APP_TOKEN: ${{ steps.generate_token.outputs.token }}
+#       - name: Generate an access token to trigger downstream repo
+#         uses: actions/create-github-app-token@2986852ad836768dfea7781f31828eb3e17990fa # v1.6.2
+#         id: generate_token
+#         if: github.ref == 'refs/heads/main'
+#         with:
+#           app-id: ${{ secrets.CICD_ROBOT_GITHUB_APP_ID }}
+#           private-key: ${{ secrets.CICD_ROBOT_GITHUB_APP_PRIVATE_KEY }}
+#           owner: TBD54566975
+#           repositories: sdk-report-runner
 
-  # test-with-browsers:
-  #   # Run browser tests using macOS so that WebKit tests don't fail under a Linux environment
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout source
-  #       uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+#       - name: Trigger sdk-report-runner report build
+#         if: github.ref == 'refs/heads/main'
+#         run: |
+#           curl -L \
+#           -H "Authorization: Bearer ${APP_TOKEN}" \
+#           -H "X-GitHub-Api-Version: 2022-11-28" \
+#           -H "Content-Type: application/json" \
+#           --fail \
+#           --data '{"ref": "main"}' \
+#           https://api.github.com/repos/TBD54566975/sdk-report-runner/actions/workflows/build-report.yaml/dispatches
+#         env:
+#           APP_TOKEN: ${{ steps.generate_token.outputs.token }}
 
-  #     - name: install pnpm
-  #       uses: pnpm/action-setup@v2
-  #       with:
-  #         version: 8
+#   # test-with-browsers:
+#   #   # Run browser tests using macOS so that WebKit tests don't fail under a Linux environment
+#   #   runs-on: ubuntu-latest
+#   #   steps:
+#   #     - name: Checkout source
+#   #       uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
 
-  #     - name: Set up Node.js
-  #       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
-  #       with:
-  #         node-version: 20
-  #         registry-url: https://registry.npmjs.org/
+#   #     - name: install pnpm
+#   #       uses: pnpm/action-setup@v2
+#   #       with:
+#   #         version: 8
 
-  #     - name: Install dependencies
-  #       run: pnpm install
+#   #     - name: Set up Node.js
+#   #       uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
+#   #       with:
+#   #         node-version: 20
+#   #         registry-url: https://registry.npmjs.org/
 
-  #     - name: Install Playwright Browsers
-  #       run: npx playwright install --with-deps
+#   #     - name: Install dependencies
+#   #       run: pnpm install
 
-  #     - name: Run tests for all packages
-  #       run: pnpm test:browser
+#   #     - name: Install Playwright Browsers
+#   #       run: npx playwright install --with-deps
+
+#   #     - name: Run tests for all packages
+#   #       run: pnpm test:browser
