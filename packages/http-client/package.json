@@ -11,9 +11,6 @@
     "url": "git+https://github.com/TBD54566975/tbdex-js",
     "directory": "packages/http-client"
   },
-  "publishConfig": {
-    "registry": "http://localhost:4873"
-  },
   "contributors": [
     {
       "name": "Jiyoon Koo",

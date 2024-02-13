@@ -13,7 +13,10 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   version:
     # prevents this action from running on forks
-    if: github.repository == 'TBD54566975/tbdex-js'
+    # if: github.repository == 'TBD54566975/tbdex-js'
+    permissions:
+      contents: write # to create release (changesets/action)
+      pull-requests: write # to create pull request (changesets/action)
 
     name: Changeset Version
     runs-on: ubuntu-latest
@@ -39,8 +42,8 @@ jobs:
         uses: changesets/action@v1
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: pnpm changeset:release
-          version: pnpm changeset:version
+          publish: pnpm changeset publish
+          version: pnpm changeset version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
