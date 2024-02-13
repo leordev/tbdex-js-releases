@@ -1,5 +1,11 @@
 # @tbdex/http-server
 
+## 0.26.3
+
+### Patch Changes
+
+- 10ad047: patching server test
+
 ## 0.26.2
 
 ## 0.26.1
