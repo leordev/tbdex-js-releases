@@ -1,5 +1,11 @@
 # @tbdex/http-server
 
+## 0.26.0
+
+### Minor Changes
+
+- Testing changesets
+
 ## 0.25.0
 
 ### Minor Changes
