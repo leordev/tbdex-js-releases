@@ -21,8 +21,8 @@
     "import": "./dist/main.js"
   },
   "dependencies": {
-    "@tbdex/http-client": "workspace:*",
-    "@tbdex/protocol": "workspace:*",
+    "@tbdex/http-client": "workspace:@leordev-tbdex/http-client@*",
+    "@tbdex/protocol": "workspace:@leordev-tbdex/protocol@*",
     "@web5/dids": "0.2.2",
     "cors": "2.8.5",
     "express": "4.18.2"

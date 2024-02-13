@@ -58,7 +58,7 @@ importers:
   packages/http-client:
     dependencies:
       '@tbdex/protocol':
-        specifier: workspace:*
+        specifier: workspace:@leordev-tbdex/protocol@*
         version: link:../protocol
       '@web5/common':
         specifier: 0.2.2
@@ -152,10 +152,10 @@ importers:
   packages/http-server:
     dependencies:
       '@tbdex/http-client':
-        specifier: workspace:*
+        specifier: workspace:@leordev-tbdex/http-client@*
         version: link:../http-client
       '@tbdex/protocol':
-        specifier: workspace:*
+        specifier: workspace:@leordev-tbdex/protocol@*
         version: link:../protocol
       '@web5/dids':
         specifier: 0.2.2
