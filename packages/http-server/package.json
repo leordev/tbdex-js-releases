@@ -7,6 +7,9 @@
     "url": "git+https://github.com/TBD54566975/tbdex-js.git",
     "directory": "packages/http-server"
   },
+  "publishConfig": {
+    "registry": "http://localhost:4873"
+  },
   "license": "Apache-2.0",
   "type": "module",
   "version": "0.26.0",
