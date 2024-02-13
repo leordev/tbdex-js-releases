@@ -1,5 +1,11 @@
 # @tbdex/protocol
 
+## 0.26.2
+
+### Patch Changes
+
+- 72ea381: Protocol changes test
+
 ## 0.26.1
 
 ### Patch Changes
