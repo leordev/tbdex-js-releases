@@ -17,6 +17,7 @@ jobs:
     permissions:
       contents: write # to create release (changesets/action)
       pull-requests: write # to create pull request (changesets/action)
+      id-token: write # necessary for NPM provenance
 
     name: Changeset Version
     runs-on: ubuntu-latest
@@ -36,6 +37,12 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
+
+      # Note - this is not required but it gives a clean failure prior to attempting a release if the GH workflow runner is not authenticated with NPMjs.com
+      - name: Verify NPM token is authenticated with NPMjs.com
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm whoami
 
       - name: Install dependencies
         run: pnpm install
