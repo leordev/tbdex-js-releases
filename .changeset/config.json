@@ -2,7 +2,13 @@
   "$schema": "https://unpkg.com/@changesets/config@2.3.1/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "fixed": [["@tbdex/protocol", "@tbdex/http-client", "@tbdex/http-server"]],
+  "fixed": [
+    [
+      "@leordev-tbdex/protocol",
+      "@leordev-tbdex/http-client",
+      "@leordev-tbdex/http-server"
+    ]
+  ],
   "linked": [],
   "access": "restricted",
   "baseBranch": "main",
