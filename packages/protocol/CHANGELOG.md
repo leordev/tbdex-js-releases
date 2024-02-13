@@ -1,5 +1,11 @@
 # @tbdex/protocol
 
+## 0.26.1
+
+### Patch Changes
+
+- d783380: Test protocol patch bump
+
 ## 0.26.0
 
 ### Minor Changes
