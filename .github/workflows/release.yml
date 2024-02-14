@@ -11,7 +11,7 @@ on:
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
-  version:
+  release:
     # prevents this action from running on forks
     # if: github.repository == 'TBD54566975/tbdex-js'
     permissions:
@@ -60,6 +60,8 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish Docs when Published to NPM
-        # if: steps.changesets.outputs.published == 'true'
-        uses: ./.github/workflows/docs-publish
+  release-docs:
+    needs: release
+    # check if changesets output has published
+    # if: ${{ needs.release.outputs.published == 'true' }}
+    uses: ./.github/workflows/docs-publish.yml
