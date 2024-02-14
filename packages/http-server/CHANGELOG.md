@@ -1,5 +1,11 @@
 # @tbdex/http-server
 
+## 0.27.0
+
+### Minor Changes
+
+- d555bdb: wooohooo testing
+
 ## 0.26.4
 
 ### Patch Changes
