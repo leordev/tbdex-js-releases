@@ -19,7 +19,7 @@ jobs:
       pull-requests: write # to create pull request (changesets/action)
       id-token: write # necessary for NPM provenance
 
-    name: Changeset Version
+    name: Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
