@@ -1,5 +1,11 @@
 # @tbdex/protocol
 
+## 0.26.4
+
+### Patch Changes
+
+- a6f6a70: Everything patched
+
 ## 0.26.3
 
 ## 0.26.2
