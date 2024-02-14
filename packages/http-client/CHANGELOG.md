@@ -1,5 +1,11 @@
 # @tbdex/http-client
 
+## 0.27.1
+
+### Patch Changes
+
+- [#9](https://github.com/leordev/tbdex-js-releases/pull/9) [`83be3f4`](https://github.com/leordev/tbdex-js-releases/commit/83be3f451370ac22fc977d72b1626235fb0c940b) Thanks [@leordev](https://github.com/leordev)! - Huge patch on http-client, be ready
+
 ## 0.27.0
 
 ### Minor Changes
