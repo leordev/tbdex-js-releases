@@ -1,5 +1,11 @@
 # @tbdex/protocol
 
+## 0.27.1
+
+### Patch Changes
+
+- [#7](https://github.com/leordev/tbdex-js-releases/pull/7) [`d3a921a`](https://github.com/leordev/tbdex-js-releases/commit/d3a921a225a4c7f0c6e33b88631c80cf9de3243d) Thanks [@leordev](https://github.com/leordev)! - Just a small patch on protocol
+
 ## 0.27.0
 
 ### Minor Changes
