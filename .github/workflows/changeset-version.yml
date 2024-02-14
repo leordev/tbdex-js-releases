@@ -36,6 +36,7 @@ jobs:
         uses: actions/setup-node@64ed1c7eab4cce3362f8c340dee64e5eaeef8f7c # v3.6.0
         with:
           node-version: 20
+          registry-url: https://registry.npmjs.org/
 
       # Note - this is not required but it gives a clean failure prior to attempting a release if the GH workflow runner is not authenticated with NPMjs.com
       - name: Verify NPM token is authenticated with NPMjs.com
