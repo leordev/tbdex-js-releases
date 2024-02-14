@@ -14,10 +14,10 @@ jobs:
   version:
     # prevents this action from running on forks
     # if: github.repository == 'TBD54566975/tbdex-js'
-    # permissions:
-    #   contents: write # to create release (changesets/action)
-    #   pull-requests: write # to create pull request (changesets/action)
-    #   id-token: write # necessary for NPM provenance
+    permissions:
+      contents: write # to create release (changesets/action)
+      pull-requests: write # to create pull request (changesets/action)
+      id-token: write # necessary for NPM provenance
 
     name: Changeset Version
     runs-on: ubuntu-latest
@@ -58,3 +58,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
