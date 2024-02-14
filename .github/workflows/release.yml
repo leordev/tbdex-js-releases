@@ -62,4 +62,4 @@ jobs:
 
       - name: Publish Docs when Published to NPM
         # if: steps.changesets.outputs.published == 'true'
-        uses: .github/workflows/docs-publish.yml
+        uses: ./.github/workflows/docs-publish
